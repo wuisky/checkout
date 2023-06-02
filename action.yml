@@ -1,14 +1,18 @@
-name: 'Checkout'
+name: 'Multi Checkout'
 description: 'Checkout a Git repository at a particular version'
 inputs:
-  repository:
-    description: 'Repository name with owner. For example, actions/checkout'
-    default: ${{ github.repository }}
-  ref:
-    description: >
-      The branch, tag or SHA to checkout. When checking out the repository that
-      triggered a workflow, this defaults to the reference or SHA for that
-      event.  Otherwise, uses the default branch.
+  repositories:
+    description: 'Newline-separated repositories in the form of `owner/name` (to checkout the default branch) or `owner/name@ref` where `ref` is a branch name, tag or SHA to checkout.'
+  path:
+    description: 'Relative path under `$GITHUB_WORKSPACE` to place the repositories. Default is `..` so that repositories are cloned to `../owner/name`.'
+  # repository:
+  #   description: 'Repository name with owner. For example, actions/checkout'
+  #   default: ${{ github.repository }}
+  # ref:
+  #   description: >
+  #     The branch, tag or SHA to checkout. When checking out the repository that
+  #     triggered a workflow, this defaults to the reference or SHA for that
+  #     event.  Otherwise, uses the default branch.
   token:
     description: >
       Personal access token (PAT) used to fetch the repository. The PAT is configured
@@ -76,5 +80,5 @@ inputs:
     required: false
 runs:
   using: node16
-  main: dist/index.js
+  main: index.js
   post: dist/index.js
